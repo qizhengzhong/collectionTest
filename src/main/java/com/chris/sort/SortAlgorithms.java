@@ -2,23 +2,49 @@ package com.chris.sort;
 
 /**
  * REF: https://stackabuse.com/sorting-algorithms-in-java/
+ * <p>
+ * Quick Sort Sudo code
+ * <p>
+ * quickSort(arr[], int begin, int end) {
+ * if (begin < end) {
+ * int pi = partition(arr, begin, end);
+ * quickSort(arr, begin, pi-1);
+ * quickSort(arr, pi+1, end);
+ * }
+ * }
+ * <p>
+ * int partition(arr[], int begin, int end) {
+ * pivot = end;
+ * <p>
+ * i = begin -1;
+ * <p>
+ * for ( j=0; j< end;j++) {
+ * if ( arr[j] < arr[pivot] ) {
+ * i++;
+ * swap arr[i] with arr[j]
+ * }
+ * }
+ * swap arr[i+1] with arr[pivot]
+ * return i+1;
+ * }
  */
 
 public class SortAlgorithms {
 
   public static void main(String[] args) {
-    int[] bubbleSortArr ={4,2,1,5,3};
-    quickSort(bubbleSortArr,0,4);
-    for (int a: bubbleSortArr) {
+    int[] bubbleSortArr = {4, 2, 1, 5, 3};
+    quickSort(bubbleSortArr, 0, 4);
+    for (int a : bubbleSortArr) {
       System.out.println(a);
     }
   }
 
   public static void quickSort(int[] array, int begin, int end) {
-    if (end <= begin) return;
+    if (end <= begin)
+      return;
     int pivot = partition(array, begin, end);
-    quickSort(array, begin, pivot-1);
-    quickSort(array, pivot+1, end);
+    quickSort(array, begin, pivot - 1);
+    quickSort(array, pivot + 1, end);
   }
 
 
@@ -42,26 +68,28 @@ public class SortAlgorithms {
   }
 
   public static void mergeSort(int[] array, int left, int right) {
-    if (right <= left) return;
-    int mid = (left+right)/2;
+    if (right <= left)
+      return;
+    int mid = (left + right) / 2;
     mergeSort(array, left, mid);
-    mergeSort(array, mid+1, right);
+    mergeSort(array, mid + 1, right);
     merge(array, left, mid, right);
   }
+
   static void merge(int[] array, int left, int mid, int right) {
     // calculating lengths
     int lengthLeft = mid - left + 1;
     int lengthRight = right - mid;
 
     // creating temporary subarrays
-    int leftArray[] = new int [lengthLeft];
-    int rightArray[] = new int [lengthRight];
+    int leftArray[] = new int[lengthLeft];
+    int rightArray[] = new int[lengthRight];
 
     // copying our sorted subarrays into temporaries
     for (int i = 0; i < lengthLeft; i++)
-      leftArray[i] = array[left+i];
+      leftArray[i] = array[left + i];
     for (int i = 0; i < lengthRight; i++)
-      rightArray[i] = array[mid+i+1];
+      rightArray[i] = array[mid + i + 1];
 
     // iterators containing current index of temp subarrays
     int leftIndex = 0;
@@ -74,8 +102,7 @@ public class SortAlgorithms {
         if (leftArray[leftIndex] < rightArray[rightIndex]) {
           array[i] = leftArray[leftIndex];
           leftIndex++;
-        }
-        else {
+        } else {
           array[i] = rightArray[rightIndex];
           rightIndex++;
         }
@@ -92,6 +119,7 @@ public class SortAlgorithms {
       }
     }
   }
+
   /**
    * O(n^2)
    */
@@ -99,7 +127,7 @@ public class SortAlgorithms {
     for (int i = 0; i < array.length; i++) {
       int min = array[i];
       int minId = i;
-      for (int j = i+1; j < array.length; j++) {
+      for (int j = i + 1; j < array.length; j++) {
         if (array[j] < min) {
           min = array[j];
           minId = j;
@@ -119,13 +147,13 @@ public class SortAlgorithms {
     for (int i = 1; i < array.length; i++) {
       int current = array[i];
       int j = i - 1;
-      while(j >= 0 && current < array[j]) {
-        array[j+1] = array[j];
+      while (j >= 0 && current < array[j]) {
+        array[j + 1] = array[j];
         j--;
       }
       // at this point we've exited, so j is either -1
       // or it's at the first element where current >= a[j]
-      array[j+1] = current;
+      array[j + 1] = current;
     }
   }
 
@@ -133,16 +161,16 @@ public class SortAlgorithms {
    * Worst scenario: 5 4 3 2 1
    * O(n^2)
    */
-    public static void bubbleSort(int[] array) {
+  public static void bubbleSort(int[] array) {
     boolean sorted = false;
     int temp;
-    while(!sorted) {
+    while (!sorted) {
       sorted = true;
       for (int i = 0; i < array.length - 1; i++) {
-        if (array[i] > array[i+1]) {
+        if (array[i] > array[i + 1]) {
           temp = array[i];
-          array[i] = array[i+1];
-          array[i+1] = temp;
+          array[i] = array[i + 1];
+          array[i + 1] = temp;
           sorted = false;
         }
       }
